@@ -1,0 +1,39 @@
+python automation project --
+
+** WebWeaver - (website automator)
+
+	-- note
+		~~you can use any variable name which you want, not necessary to use the names which I mention however use those variable name which makes ease in readability and understanding
+		
+	-- code snippet
+		import sys
+		import webbrowser
+		
+		~~note - webbrowser is by-default installed only, still if one getting error related to it, just try to install it by using this command - pip install webbrowser or pip3 install webbrowser
+		~~note - webbrowser module provides a high-level interface to allow displaying web-based documents to users.
+		
+	-- create a dictionary containing the key with keyword/argument/group-name and value with list of webpages associated with that key
+	
+		``code snippet
+			url_links = { <keyword/argument/group-name> : [<"link of webpages">] }
+		
+	-- create a function that handles the process of opening the webpages
+		``code snippet
+			def start_opening_webpages(url_links):
+				for link in url_links:
+					webbrowser.open(link)
+		
+		~~note - the webpages will be opening in the default browser set with VS-code, you can also change opening browser by referring below code:
+				``this code is written in order to open webpages in chrome browser
+					import os
+					chrome_path = <'path-of-chrome-browser-installed-in-your-system'>
+					webbrowser.get(chrome_path).open(link)
+					
+					~~note you can check if chrome is installed or not by using this function whose return type is boolean: os.path.exists(chrome_path)
+						
+	
+	-- code snippet to take argument from command-line/terminal
+		key_link = sys.argv[1]
+		start_opening_webpages(url_links[key_link])
+		
+		~~note - in argv, the reason to provide index as 1 is because of the command written in command-line/terminal, as the first argument in command will be the file name of the project and second argument will be the keyword/argument/group-name. So, the index provided in argv is 1.
