@@ -1,0 +1,37 @@
+python automation project --
+
+** youtube video downloader
+
+	-- note
+		~~you can use any variable name which you want, not necessary to use the names which I mention however use those variable name which makes ease in readability and understanding
+		
+	-- install pytube 
+		pip3 install pytube
+	
+	-- code snippet
+		from pytube import YouTube
+		from sys import argv
+		
+		~~this modules are imported in order to create a youtube object and utilize the functionality of YouTube module to fetch the details about video and also we would be passing the video link as argument in command at terminal
+		
+		~~command at terminal; python <project-name.py> <"link">
+		
+	-- creating an object which will store the link of youtube video from the argument provided in command
+		url_link = argv[1]
+		
+		~~note - in argv, the reason to provide index as 1 is because of the command, as the first argument in command will be the file name of the project and second argument will be the link of youtube video. So, the index provided in argv is 1.
+		
+	-- creating a youtube object
+		yt_obj = YouTube(url_link)
+
+	-- you can try different functionality provided in YouTube module like:
+		~get the title of video
+		~get the views of video
+		~get the length of video
+		~many more...
+		
+	-- now let us download the youtube video
+		yt_video_download = yt_obj.streams.get_highest_resolution()
+		yt_video_download.download(<'path-to-downloaded-video-to-store'>)
+		
+		~~note - get_highest_resolution() will download the max resolution of video, that it has on youtube however if you want to change the resolution for downloading, just use get_by_resolution(<"resolution">) function, in this you can provide the resolution in which you want to download the youtube video
