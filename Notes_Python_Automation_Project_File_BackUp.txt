@@ -1,0 +1,51 @@
+**File BackUp - Python Automation Project
+
+This automation project is useful for backing-up files everyday, after the work. To perform back-up, is best practice as it helps to track and secure the work done.
+
+	-- note
+			~~you can use any variable name which you want, not necessary to use the names which I mention however use those variable name which makes ease in readability and understanding
+	
+	-- code snippet
+		
+		import os
+		import shutil
+		import datetime
+		import time
+		import schedule
+		
+		~~note - shutil module is useful to perform high-level operations on files or collection of files, such as functionality of copying or removal of files. For more info, refer the documentation: https://docs.python.org/3.11/library/shutil.html
+		~~note - schedule module is a scheduler to perform jobs periodically. For more info, refer the documentation: https://www.geeksforgeeks.org/python-schedule-library/
+		
+	-- variable declaration for path of source and destination directory
+		
+		src_dir = "<path-of-source-directory>"
+		dst_dir = "<path-of-destination-directory>"
+		
+	-- function to perform back-up periodically (everyday) at a specific time (19:00:00 hr)
+	
+		def perform_backUp(source, destination):
+			today = datetime.date.today()
+			# naming folders with date - easy to understand on which date what was backed-up
+			dir_destination = os.path.join(destination, str(today))
+
+			try:
+				shutil.copytree(source, dir_destination)
+				print(f"BackUp Perform Successfully!\nBackUp Folder location : {dir_destination}")
+			except FileExistsError:
+				print(f"BackUp Folder Already Exist!\nLocation: {dir_destination}")
+		
+		
+		schedule.every().day.at("19:00:00").do(lambda: perform_backUp(src_dir, dst_dir))
+		
+		while True:
+			schedule.run_pending()
+			time.sleep(60)
+		
+		~~note - try and except block is kept in-order to make sure the repetation/same-file-name existance gets avoided.
+		~~note - lambda function (inline function or anonymous function) is used to pass our function perform_backUp() with arguments
+		~~note - while loop is used, as this script you might have to start in-begining of work, and then when time hits 19:00:00, the files or collection of files from source directory will automatically backed-up to specific destination directory
+		
+		
+		~~note - if you shut-down your device, then after re-booting, you have to run this script again.
+		
+		
